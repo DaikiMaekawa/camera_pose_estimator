@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
     ros::init(argc, argv, "image_publisher");
     ros::NodeHandle nh;
     image_transport::ImageTransport it(nh);
-    camera_info_manager::CameraInfoManager info_manager(nh, "world");
+    camera_info_manager::CameraInfoManager info_manager(nh, "camera");
     
     sensor_msgs::CameraInfo info;
     std::string info_file = "file://" + ros::package::getPath("simple_image_publisher") + "/config/default_camera.yaml";
