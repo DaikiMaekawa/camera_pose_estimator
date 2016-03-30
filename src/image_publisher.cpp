@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
     
     image_transport::CameraPublisher pub = it.advertiseCamera("camera/image", 1);
     cv::Mat image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);
+    ROS_INFO_STREAM("image[height, width] = (" << image.rows << ", " << image.cols << ")");
     cv::waitKey(30);
     sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();
 
