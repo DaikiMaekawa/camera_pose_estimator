@@ -17,6 +17,7 @@ int main(int argc, char *argv[]) {
     if(info_manager.validateURL(info_file)) {
         info_manager.loadCameraInfo(info_file);
         info = info_manager.getCameraInfo();
+        info.header.frame_id = "world";
     } else {
         return 1;
     }
@@ -28,6 +29,8 @@ int main(int argc, char *argv[]) {
 
     ros::Rate rate(5);
     while(nh.ok()) {
+        info.header.stamp = ros::Time::now();
+        
         pub.publish(*msg, info);
         ros::spinOnce();
         rate.sleep();
