@@ -3,6 +3,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <camera_info_manager/camera_info_manager.h>
+#include <ros/package.h>
 
 int main(int argc, char *argv[]) {
     ros::init(argc, argv, "image_publisher");
@@ -11,9 +12,13 @@ int main(int argc, char *argv[]) {
     camera_info_manager::CameraInfoManager info_manager(nh, "world");
     
     sensor_msgs::CameraInfo info;
-    if(info_manager.validateURL("/home/daikimaekawa/camera.yaml")) {
-        info_manager.loadCameraInfo("/home/daikimaekawa/camera.yaml");
+    std::string info_file = "file://" + ros::package::getPath("simple_image_publisher") + "/config/default_camera.yaml";
+    std::cout << info_file << std::endl;
+    if(info_manager.validateURL(info_file)) {
+        info_manager.loadCameraInfo(info_file);
         info = info_manager.getCameraInfo();
+    } else {
+        return 1;
     }
     
     image_transport::CameraPublisher pub = it.advertiseCamera("camera/image", 1);
