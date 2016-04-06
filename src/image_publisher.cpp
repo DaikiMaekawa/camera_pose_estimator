@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
         info = info_manager.getCameraInfo();
         info.header.frame_id = "world";
     } else {
+        ROS_ERROR("invalid camera info");
         return 1;
     }
     
