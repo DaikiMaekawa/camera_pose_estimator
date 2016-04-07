@@ -120,7 +120,7 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
 )
 
-add_library(simple_image_publisher_nodelet
+add_library(image_publisher_nodelet
    src/image_publisher_nodelet.cpp
 )
 
