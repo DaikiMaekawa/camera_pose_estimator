@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   roscpp
   camera_info_manager
+  nodelet
 )
 
 ## System dependencies are found with CMake's conventions
@@ -115,13 +116,13 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
-  ${catkin_INCLUDE_DIRS}
+    include
+    ${catkin_INCLUDE_DIRS}
 )
 
-## Declare a C++ library
-# add_library(simple_image_publisher
-#   src/${PROJECT_NAME}/simple_image_publisher.cpp
-# )
+add_library(simple_image_publisher_nodelet
+   src/image_publisher_nodelet.cpp
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -140,10 +141,18 @@ target_link_libraries(image_publisher
     ${catkin_LIBRARIES}
 )
 
-install(TARGETS image_publisher
+target_link_libraries(image_publisher_nodelet
+    ${catkin_LIBRARIES}
+)
+
+install(TARGETS image_publisher image_publisher_nodelet
     ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
     RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(FILES image_publisher_nodelets.xml
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
 install(DIRECTORY config images
