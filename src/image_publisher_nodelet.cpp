@@ -23,23 +23,19 @@ public:
 
 private:
     virtual void onInit() {
-        /*
         image_publisher_.reset(new ImagePublisher(getNodeHandle(), getPrivateNodeHandle()));
         image_publisher_->load();
 
         thread_available_ = true;
         thread_ = boost::shared_ptr<boost::thread>(
                 new boost::thread(boost::bind(&ImagePublisherNodelet::spin, this)));
-        */
     }
     
     void spin() {
-        /*
         while(thread_available_) {
             NODELET_INFO("publich camera image");
             image_publisher_->publish();
         }
-        */
     }
 
     bool thread_available_;
